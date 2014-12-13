@@ -15,7 +15,7 @@ CREATE TABLE `user` (
   `type` tinyint(4) NOT NULL DEFAULT '1',
   `last_get_gitf_time` int(11) NOT NULL DEFAULT '0',
   `last_rest_pass_time` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`,`port`)
+  PRIMARY KEY (`id`,`port`,`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=415 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

@@ -1,0 +1,16 @@
+{
+    "id": 1,
+    "email": "test@test.com",
+    "pass": "test",
+    "passwd": "test",
+    "t": 1410609560,
+    "u": 0,
+    "d": 0,
+    "transfer_enable": 9320666234,
+    "port":50000,
+    "switch":1,
+    "enalbe":1,
+    "type":7,
+    "last_get_gift_time":0,
+    "last_rest_pass_time":0
+}

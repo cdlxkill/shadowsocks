@@ -15,9 +15,9 @@ if 'salsa20' in sys.argv[-1]:
     encrypt_salsa20.test()
     print 'encryption test passed'
 
-p1 = Popen(['python', 'shadowsocks/server.py', '-c', sys.argv[-1]], stdin=PIPE,
+p1 = Popen(['python', '/home/lx/github/shadowsocks/shadowsocks/server.py', '-c', sys.argv[-1]], stdin=PIPE,
            stdout=PIPE, stderr=PIPE, close_fds=True)
-p2 = Popen(['python', 'shadowsocks/local.py', '-c', sys.argv[-1]], stdin=PIPE,
+p2 = Popen(['python', '/home/lx/github/shadowsocks/shadowsocks/local.py', '-c', sys.argv[-1]], stdin=PIPE,
            stdout=PIPE, stderr=PIPE, close_fds=True)
 p3 = None
 
