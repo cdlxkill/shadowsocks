@@ -1,8 +1,8 @@
 #Config
 MYSQL_HOST = 'localhost'
 MYSQL_PORT = 3306
-MYSQL_USER = 'root'
-MYSQL_PASS = 'SQL01jtwmy06'
+MYSQL_USER = 'test'
+MYSQL_PASS = 'test'
 MYSQL_DB = 'shadowsocks'
 
 MANAGE_PASS = 'test'
