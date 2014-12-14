@@ -42,11 +42,11 @@ def add_user_to_sql(user_json_file):
     conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
                            passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
     cur = conn.cursor()
-    insert_sql = u"INSERT INTO `user` VALUE ('%d', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%d', " \
-                 u"switch, enable, type, last_get_gift_time, last_rest_pass_time)" % (user_info['id'], user_info['email'],
-                                                                                     user_info['pass'], user_info['passwd'],
-                                                                                     user_info['t'], user_info['u'], user_info['d'],
-                                                                                     user_info['transfer_enable'], user_info['port'])
+    insert_sql = u"INSERT INTO `user` VALUE ('%d', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%d', '1' ,'1' ,'7', '0', '0')" \
+                 % (user_info['id'], user_info['email'],
+                 user_info['pass'], user_info['passwd'],
+                 user_info['t'], user_info['u'], user_info['d'],
+                 user_info['transfer_enable'], user_info['port'])
     print insert_sql
     print cur
     try:
