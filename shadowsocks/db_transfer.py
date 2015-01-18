@@ -8,6 +8,7 @@ import sys
 from server_pool import ServerPool
 import Config
 
+
 class DbTransfer(object):
 
     instance = None
@@ -45,24 +46,24 @@ class DbTransfer(object):
                 dt_transfer[id] = [curr_transfer[id][0], curr_transfer[id][1]]
 
         self.last_get_transfer = curr_transfer
-        query_head = 'UPDATE user'
+        query_head = 'UPDATE ssweb_myuser'
         query_sub_when = ''
         query_sub_when2 = ''
         query_sub_in = None
         last_time = time.time()
         for id in dt_transfer.keys():
-            query_sub_when += ' WHEN %s THEN u+%s' % (id, dt_transfer[id][0])
-            query_sub_when2 += ' WHEN %s THEN d+%s' % (id, dt_transfer[id][1])
+            query_sub_when += ' WHEN %s THEN ss_up_throught+%s' % (id, dt_transfer[id][0])
+            query_sub_when2 += ' WHEN %s THEN ss_down_throught+%s' % (id, dt_transfer[id][1])
             if query_sub_in is not None:
                 query_sub_in += ',%s' % id
             else:
                 query_sub_in = '%s' % id
         if query_sub_when == '':
             return
-        query_sql = query_head + ' SET u = CASE port' + query_sub_when + \
-                    ' END, d = CASE port' + query_sub_when2 + \
-                    ' END, t = ' + str(int(last_time)) + \
-                    ' WHERE port IN (%s)' % query_sub_in
+        query_sql = query_head + ' SET ss_up_throught = CASE ss_port' + query_sub_when + \
+                    ' END, ss_down_throught = CASE ss_port' + query_sub_when2 + \
+                    ' END, ss_last_trans_time = ' + str(int(last_time)) + \
+                    ' WHERE ss_port IN (%s)' % query_sub_in
         #print query_sql
         conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
@@ -78,7 +79,8 @@ class DbTransfer(object):
         conn = cymysql.connect(host=Config.MYSQL_HOST, port=Config.MYSQL_PORT, user=Config.MYSQL_USER,
                                passwd=Config.MYSQL_PASS, db=Config.MYSQL_DB, charset='utf8')
         cur = conn.cursor()
-        cur.execute("SELECT port, u, d, transfer_enable, passwd, switch, enable FROM user")
+        cur.execute("SELECT ss_port, ss_up_throught, ss_down_throught, ss_max_throught, ss_password, "
+                    "ss_active FROM ssweb_myuser")
         rows = []
         for r in cur.fetchall():
             rows.append(list(r))
@@ -96,7 +98,7 @@ class DbTransfer(object):
                     logging.info('db stop server at port [%s]' % (row[0]))
                     ServerPool.get_instance().del_server(row[0])
             else:
-                if row[5] == 1 and row[6] == 1 and row[1] + row[2] < row[3]:
+                if row[5] == 1 and row[1] + row[2] < row[3]:
                     logging.info('db start server at port [%s] pass [%s]' % (row[0], row[4]))
                     ServerPool.get_instance().new_server(row[0], row[4])
 

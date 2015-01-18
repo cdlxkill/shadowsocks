@@ -88,6 +88,7 @@ class ServerPool(object):
         return True
 
     def cb_new_server(self, port, password):
+        #通过UDP新建服务器
         ret = True
         port = int(port)
 
@@ -123,6 +124,7 @@ class ServerPool(object):
         return True
 
     def cb_del_server(self, port):
+        #通过UDP删除服务器
         port = int(port)
 
         if port not in self.tcp_servers_pool:
